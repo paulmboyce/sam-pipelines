@@ -210,7 +210,8 @@ jobs:
       - uses: actions/checkout@v3
       - run: |
           echo 'Running integration tests...'
-          
+          pwd
+          ls
           cd hello-world/tests/integration
           chmod 744 test.sh
           bash test.sh
