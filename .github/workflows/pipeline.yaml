@@ -209,7 +209,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: |
-          # trigger the integration tests here
+          echo 'Running integration tests...'
+          
+          cd hello-world/tests/integration
+          chmod 744 test.sh
+          bash test.sh
 
   deploy-prod:
     if: github.ref == 'refs/heads/main'
