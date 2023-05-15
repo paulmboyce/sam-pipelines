@@ -10,7 +10,7 @@ curl -s $DEV_ENDPOINT
 
 RESULT=$(curl -H "Accept: application/json"  $DEV_ENDPOINT | jq '.message' )
 
-EXPECT_CONTAINS=*"hello world"*
+EXPECT_CONTAINS=*"hello paul"*
 
 if [[ $RESULT = $EXPECT_CONTAINS ]]; then
     echo "test PASS"    
