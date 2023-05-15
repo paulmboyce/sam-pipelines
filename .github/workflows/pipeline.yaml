@@ -212,7 +212,15 @@ jobs:
           echo 'Running integration tests...'
           pwd
           ls
-          cd hello-world/tests/integration
+          cd hello-world
+          pwd
+          ls
+          cd tests
+          pwd
+          ls
+          cd integration
+          pwd
+          ls
           chmod 744 test.sh
           bash test.sh
 
