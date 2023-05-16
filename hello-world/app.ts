@@ -1,17 +1,27 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
+import * as AWS from 'aws-sdk';
+import { v4 as uuidv4 } from 'uuid';
 
-/**
- *
- * Event doc: https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-lambda-proxy-integrations.html#api-gateway-simple-proxy-for-lambda-input-format
- * @param {Object} event - API Gateway Lambda Proxy Input Format
- *
- * Return doc: https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-lambda-proxy-integrations.html
- * @returns {Object} object - API Gateway Lambda Proxy Output Format
- *
- */
+const dynamoDB = new AWS.DynamoDB.DocumentClient();
+
 export const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
     let response: APIGatewayProxyResult;
     try {
+        const messageId = uuidv4();
+        const currentDate = new Date();
+        const messageItem = {
+            messageId: messageId,
+            message: 'HelloWorldFunction executed',
+            timestamp: currentDate.toISOString(),
+        };
+
+        const params = {
+            TableName: 'message-table',
+            Item: messageItem,
+        };
+
+        await dynamoDB.put(params).promise();
+
         response = {
             statusCode: 200,
             body: JSON.stringify({
@@ -27,6 +37,5 @@ export const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGat
             }),
         };
     }
-
     return response;
 };
