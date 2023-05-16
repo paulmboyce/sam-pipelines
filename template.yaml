@@ -48,6 +48,7 @@ Resources:
         - app.ts
         External:
         - "aws-sdk"
+        - "uuid"
   MessageTable:
     Type: AWS::DynamoDB::Table
     Properties:
