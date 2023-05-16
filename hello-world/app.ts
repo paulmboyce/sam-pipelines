@@ -1,8 +1,8 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
-import * as AWS from 'aws-sdk';
+import { DynamoDBClient, PutItemCommand } from '@aws-sdk/client-dynamodb';
 import { v4 as uuidv4 } from 'uuid';
 
-const dynamoDB = new AWS.DynamoDB.DocumentClient();
+const dynamoDB = new DynamoDBClient();
 
 export const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
     let response: APIGatewayProxyResult;
@@ -10,9 +10,9 @@ export const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGat
         const messageId = uuidv4();
         const currentDate = new Date();
         const messageItem = {
-            messageId: messageId,
-            message: 'HelloWorldFunction executed',
-            timestamp: currentDate.toISOString(),
+            messageId: { S: messageId },
+            message: { S: 'HelloWorldFunction executed' },
+            timestamp: { S: currentDate.toISOString() },
         };
 
         const params = {
@@ -20,7 +20,7 @@ export const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGat
             Item: messageItem,
         };
 
-        await dynamoDB.put(params).promise();
+        await dynamoDB.send(new PutItemCommand(params));
 
         response = {
             statusCode: 200,

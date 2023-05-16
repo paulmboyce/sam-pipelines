@@ -17,7 +17,7 @@ Resources:
     Properties:
       CodeUri: hello-world/
       Handler: app.lambdaHandler
-      Runtime: nodejs16.x
+      Runtime: nodejs18.x
       Architectures:
         - x86_64
       Events:
@@ -47,7 +47,7 @@ Resources:
         EntryPoints: 
         - app.ts
         External:
-        - "aws-sdk"
+        - "@aws-sdk/client-dynamodb"
   MessageTable:
     Type: AWS::DynamoDB::Table
     Properties:
