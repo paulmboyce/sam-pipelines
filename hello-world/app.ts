@@ -12,7 +12,6 @@ export const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGat
 
         const response = generateResponse(200, {
             message: 'hello paul',
-            deployment: 'canary: Canary10Percent5Minutes',
         });
 
         return response;
