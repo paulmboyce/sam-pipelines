@@ -26,6 +26,7 @@ export const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGat
             statusCode: 200,
             body: JSON.stringify({
                 message: 'hello paul',
+                deployment: 'canary',
             }),
         };
     } catch (err) {
