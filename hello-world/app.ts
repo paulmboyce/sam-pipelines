@@ -8,43 +8,48 @@ export const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGat
     try {
         // const messageId = uuidv4();
         // const currentDate = new Date();
+        // await updateDynamoDBTable(messageId, currentDate);
 
-        //await updateDynamoDBTable(messageId, currentDate);
-
-        const response: APIGatewayProxyResult = {
-            statusCode: 200,
-            body: JSON.stringify({
-                message: 'hello paul',
-                deployment: 'canary: Canary10Percent5Minutes',
-            }),
-        };
+        const response = generateResponse(200, {
+            message: 'hello paul',
+            deployment: 'canary: Canary10Percent5Minutes',
+        });
 
         return response;
     } catch (error) {
         console.error(error);
 
-        const errorResponse: APIGatewayProxyResult = {
-            statusCode: 500,
-            body: JSON.stringify({
-                message: error instanceof Error ? error.message : 'some error happened',
-            }),
-        };
+        const errorResponse = generateResponse(500, {
+            message: error instanceof Error ? error.message : 'some error happened',
+        });
 
         return errorResponse;
     }
 };
 
 const updateDynamoDBTable = async (messageId: string, currentDate: Date): Promise<void> => {
-    const messageItem = {
-        messageId: { S: messageId },
-        message: { S: 'HelloWorldFunction executed in ' + process.env.AWS_REGION },
-        timestamp: { S: currentDate.toISOString() },
-    };
+    try {
+        const messageItem = {
+            messageId: { S: messageId },
+            message: { S: 'HelloWorldFunction executed in ' + process.env.AWS_REGION },
+            timestamp: { S: currentDate.toISOString() },
+        };
 
-    const params = {
-        TableName: 'message-table',
-        Item: messageItem,
-    };
+        const params = {
+            TableName: 'message-table',
+            Item: messageItem,
+        };
 
-    await dynamoDB.send(new PutItemCommand(params));
+        await dynamoDB.send(new PutItemCommand(params));
+    } catch (error) {
+        console.error('Error updating DynamoDB table:', error);
+        throw error;
+    }
+};
+
+const generateResponse = (statusCode: number, body: object): APIGatewayProxyResult => {
+    return {
+        statusCode,
+        body: JSON.stringify(body),
+    };
 };
