@@ -9,7 +9,7 @@ export const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGat
         const messageId = uuidv4();
         const currentDate = new Date();
 
-        await updateDynamoDBTable(messageId, currentDate);
+        //await updateDynamoDBTable(messageId, currentDate);
 
         const response: APIGatewayProxyResult = {
             statusCode: 200,
