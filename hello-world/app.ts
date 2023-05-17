@@ -7,7 +7,7 @@ const dynamoDB = new DynamoDBClient({ region: process.env.AWS_REGION });
 export const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
     let response: APIGatewayProxyResult;
 
-    throw new Error('This will cause a deployment rollback');
+    //throw new Error('This will cause a deployment rollback');
 
     try {
         const messageId = uuidv4();
