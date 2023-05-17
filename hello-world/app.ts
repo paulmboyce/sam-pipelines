@@ -6,8 +6,8 @@ const dynamoDB = new DynamoDBClient({ region: process.env.AWS_REGION });
 
 export const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
     try {
-        const messageId = uuidv4();
-        const currentDate = new Date();
+        // const messageId = uuidv4();
+        // const currentDate = new Date();
 
         //await updateDynamoDBTable(messageId, currentDate);
 
