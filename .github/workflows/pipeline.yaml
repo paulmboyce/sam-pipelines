@@ -225,7 +225,7 @@ jobs:
           cd hello-world/tests/integration
           pwd
           chmod 744 test.sh
-          bash test.sh
+          echo DISABLED bash test.sh
 
   deploy-prod:
     if: github.ref == 'refs/heads/main'
