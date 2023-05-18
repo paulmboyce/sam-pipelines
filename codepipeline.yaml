@@ -322,7 +322,7 @@ Resources:
                   Category: Approval
                   Owner: AWS
                   Provider: Manual
-                  Version: '1'
+                  Version: "1"
                 Configuration:
                   NotificationArn: !Ref ApprovalNotificationTopic
                   CustomData: "Please APPROVE for release to production"
@@ -477,6 +477,15 @@ Resources:
                 Resource:
                   Fn::Sub: ${PipelineArtifactsBucket.Arn}/*
 
+        - PolicyName: CodePipelineSNSPolicyForManualApproval
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - 'sns:Publish'
+                Resource: !Ref ApprovalNotificationTopic
+
         - PolicyName: CodePipelineCodeBuildAndCloudformationAccess
           PolicyDocument:
             Version: "2012-10-17"
@@ -582,14 +591,6 @@ Resources:
                   - "cloudformation:DescribeStacks"
                 Resource:
                   - !Sub "arn:${AWS::Partition}:cloudformation:${TestingRegion}:${AWS::AccountId}:stack/${TestingStackName}/*"
-        - PolicyName: CodePipelineSNSPolicyForManualApproval
-          PolicyDocument:
-            Version: '2012-10-17'
-            Statement:
-              - Effect: Allow
-                Action:
-                  - 'sns:Publish'
-                Resource: !Ref ApprovalNotificationTopic
         - PolicyName: CodeBuildArtifactsBucket
           PolicyDocument:
             Version: "2012-10-17"
