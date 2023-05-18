@@ -24,3 +24,7 @@ const generateResponse = (statusCode: number, body: object): APIGatewayProxyResu
         body: JSON.stringify(body),
     };
 };
+
+export const __test__ = {
+    generateResponse: generateResponse,
+};

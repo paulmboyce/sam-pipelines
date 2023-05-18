@@ -1,7 +1,23 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
-import { lambdaHandler } from '../../app';
+import { lambdaHandler, __test__ } from '../../app';
 
 describe('Unit test for app handler', function () {
+    it('should generate a response object with the provided status code and body', () => {
+        const statusCode = 200;
+        const body = {
+            message: 'hello world',
+        };
+
+        const response = __test__.generateResponse(statusCode, body);
+
+        expect(response).toEqual({
+            statusCode: 200,
+            body: JSON.stringify({
+                message: 'hello world',
+            }),
+        });
+    });
+
     it('verifies successful response', async () => {
         const event: APIGatewayProxyEvent = {
             httpMethod: 'get',
