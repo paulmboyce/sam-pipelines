@@ -563,7 +563,7 @@ Resources:
                 Action:
                   - "cloudformation:DescribeStacks"
                 Resource:
-                  - !Sub "arn:${AWS::Partition}:cloudformation:${AWS::Region}:${AWS::AccountId}:stack/${TestingStackName}/*"
+                  - !Sub "arn:${AWS::Partition}:cloudformation:${TestingRegion}:${AWS::AccountId}:stack/${TestingStackName}/*"
         - PolicyName: CodeBuildArtifactsBucket
           PolicyDocument:
             Version: "2012-10-17"
