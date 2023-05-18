@@ -148,6 +148,14 @@ Resources:
   # |  __/| | |_) |  __| | | | | |  __/
   # |_|   |_| .__/ \___|_|_|_| |_|\___|
   #         |_|
+  ApprovalNotificationTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      DisplayName: PipelineApprovalNotification
+      Subscription:
+        - Endpoint: ecsworkshop1@gmail.com
+          Protocol: email
+
   Pipeline:
     Type: AWS::CodePipeline::Pipeline
     Properties:
@@ -309,6 +317,16 @@ Resources:
               #    Provider: Manual
               #    Version: "1"
               #   RunOrder: 1
+              - Name: ManualApprovalAction
+                ActionTypeId:
+                  Category: Approval
+                  Owner: AWS
+                  Provider: Manual
+                  Version: '1'
+                Configuration:
+                  NotificationArn: !Ref ApprovalNotificationTopic
+                  CustomData: "Please APPROVE for release to production"
+                RunOrder: 1
               - Name: DeployProdStage
                 ActionTypeId:
                   Category: Build
