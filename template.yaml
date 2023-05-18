@@ -55,7 +55,7 @@ Resources:
         EntryPoints: 
         - app.ts
         External:
-        - "@aws-sdk/client-dynamodb"
+        - ""
 
 
   CanaryErrorsAlarm:
