@@ -582,6 +582,14 @@ Resources:
                   - "cloudformation:DescribeStacks"
                 Resource:
                   - !Sub "arn:${AWS::Partition}:cloudformation:${TestingRegion}:${AWS::AccountId}:stack/${TestingStackName}/*"
+        - PolicyName: CodePipelineSNSPolicyForManualApproval
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - 'sns:Publish'
+                Resource: !Ref ApprovalNotificationTopic
         - PolicyName: CodeBuildArtifactsBucket
           PolicyDocument:
             Version: "2012-10-17"
