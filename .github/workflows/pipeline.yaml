@@ -22,7 +22,7 @@ env:
   # testing "sam package" and "sam deploy" commands.
   # TESTING_IMAGE_REPOSITORY = '0123456789.dkr.ecr.region.amazonaws.com/repository-name'
   TESTING_REGION: eu-west-1
-  PROD_STACK_NAME: sam-workshop-prod-stage
+  PROD_STACK_NAME: sam-workshop-prod-stage-github
   PROD_PIPELINE_EXECUTION_ROLE: arn:aws:iam::174543029707:role/aws-sam-cli-managed-PROD-STA-PipelineExecutionRole-19PG8LG8QQWYP
   PROD_CLOUDFORMATION_EXECUTION_ROLE: arn:aws:iam::174543029707:role/aws-sam-cli-managed-PROD-CloudFormationExecutionR-YX0CEMJ5I3LZ
   PROD_ARTIFACTS_BUCKET: aws-sam-cli-managed-prod-stage-pi-artifactsbucket-8tf1aa98p0ds
